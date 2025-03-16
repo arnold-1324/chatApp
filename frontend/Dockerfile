@@ -1,26 +1,22 @@
-# Use the latest Node.js LTS version as the base image
-FROM node:18-alpine
+FROM node:20-alpine
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first (for better caching)
-COPY package.json package-lock.json ./
+# Copy package files
+COPY package*.json ./
 
-# Install dependencies
+# Clean install dependencies
 RUN npm install
-
-# Dynamically install the exact version of esbuild required by vite
-RUN npm install esbuild@$(node -p "require('./node_modules/vite/package.json').dependencies.esbuild")
 
 # Copy the rest of the application files
 COPY . .
 
-# Expose the port used by Vite (default: 3000)
+# Expose the port used by Vite
 EXPOSE 3000
 
-# Set environment variable to fix file watching inside Docker
-ENV CHOKIDAR_USEPOLLING=true
+# Set environment variables
+ENV NODE_ENV=development
+ENV VITE_API_URL=http://backend:5000
 
-# Start the frontend app in development mode
-CMD ["npm", "run", "dev", "--", "--host"]
+# Start the frontend app
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
