@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (authUser) {
-			const socket = io("https://chatapp-production-4bbc.up.railway.app", {
+			const socket = io("https://thriving-enchantment-production-1a74.up.railway.app/", {
 				query: {
 					userId: authUser._id,
 				},

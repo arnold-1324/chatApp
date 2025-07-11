@@ -8,7 +8,7 @@ export default defineConfig({
 		port: 3000,
 		proxy: {
 			"/api": {
-				target: "https://chatapp-1-w03b.onrender.com/",
+				target: "https://thriving-enchantment-production-1a74.up.railway.app/",
 			},
 		},
 	},
